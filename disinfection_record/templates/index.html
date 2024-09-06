@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>录入消毒记录</title>
+    <script>
+        function magicButton() {
+            let startDate = prompt("请输入开始日期 (格式 YYYY-MM-DD)：");
+            let endDate = prompt("请输入结束日期 (格式 YYYY-MM-DD)：");
+            if (startDate && endDate) {
+                fetch('/magic', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'start_date=' + encodeURIComponent(startDate) + '&end_date=' + encodeURIComponent(endDate)
+                })
+                .then(response => response.text())
+                .then(data => alert(data))
+                .catch(error => console.error('Error:', error));
+            }
+        }
+    
+        function printRecords() {
+            let startDate = prompt("请输入开始日期 (格式 YYYY-MM-DD)：");
+            let endDate = prompt("请输入结束日期 (格式 YYYY-MM-DD)：");
+            if (startDate && endDate) {
+                // 发送 AJAX 请求到 Flask 后端
+                window.open('/print_records?start_date=' + encodeURIComponent(startDate) + '&end_date=' + encodeURIComponent(endDate), '_blank');
+            }
+        } // 这里是 printRecords 函数的闭合大括号
+    </script>
+</head>
+<body>
+    <h1>录入消毒记录</h1>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <form method="post">
+        <label for="creation_date">日期：</label>
+        <input type="date" id="creation_date" name="creation_date" required><br><br>
+
+        <label for="position">位置：</label>
+        <select id="position" name="position" required>
+            <option value="诊室、大厅">诊室、大厅</option>
+        </select><br><br>
+
+        <label for="disinfectant">消毒剂：</label>
+        <select id="disinfectant" name="disinfectant" required>
+            <option value="含氯消毒液">含氯消毒液</option>
+        </select><br><br>
+
+        <label for="type">消毒方式：</label>
+        <select id="type" name="type" required>
+            <option value="擦拭">擦拭</option>
+            <option value="拖地">拖地</option>
+        </select><br><br>
+
+        <label for="recorder">记录人：</label>
+        <select id="recorder" name="recorder" required>
+            <option value="李畅">李畅</option>
+            <option value="成月">成月</option>
+        </select><br><br>
+
+        <label for="notes">备注：</label>
+        <textarea id="notes" name="notes" rows="4" cols="50"></textarea><br><br>
+
+        <input type="submit" value="保存">
+        <input type="button" value="魔法" onclick="magicButton()">
+        <input type="button" value="打印记录" onclick="printRecords()">
+    </form>
+</body>
+</html>
