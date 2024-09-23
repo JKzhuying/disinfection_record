@@ -100,8 +100,10 @@ def print_records():
                           WHERE creation_date BETWEEN %s AND %s''', (start_date, end_date))
         records = cursor.fetchall()
 
-        filepath = os.path.join('/home/hrkq/文档/HRKQ/disinfection_record', "records.pdf")
-        doc = SimpleDocTemplate(filepath, pagesize=A4)
+        # 创建一个内存中的文件
+        from io import BytesIO
+        buffer = BytesIO()
+        doc = SimpleDocTemplate(buffer, pagesize=A4)
         elements = []
         
         title_style = ParagraphStyle(name='title_style', fontName='Heiti-Bold', fontSize=22, alignment=1)
@@ -176,7 +178,9 @@ def print_records():
 
         doc.build(elements)
 
-        return send_file(filepath, as_attachment=True, download_name="records.pdf")
+        # 将内存中的文件转换为响应
+        buffer.seek(0)
+        return send_file(buffer, as_attachment=True, download_name="records.pdf")
     except Exception as e:
         flash(str(e))
     finally:
