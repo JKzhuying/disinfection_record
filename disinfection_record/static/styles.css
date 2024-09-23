@@ -1,0 +1,65 @@
+/* styles.css */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    min-height: 100vh; /* 最小高度为视口高度 */
+    align-items: center; /* 垂直居中 */
+    min-height: 100vh; /* 最小高度为视口高度 */
+    background: url('background.jpg') no-repeat center center fixed; /* 设置背景图片 */
+    background-size: cover; /* 覆盖整个视口 */
+}
+h1 {
+    font-size: 4em; /* 放大字号 */
+    font-weight: bold; /* 加粗 */
+    font-family: '黑体', sans-serif; /* 使用黑体字体 */
+    text-align: center; /* 居中显示 */
+    margin: 20px 0; /* 调整上下边距 */
+    color: #333; /* 标题颜色 */
+}
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* 使子元素在顶部对齐 */
+    width: 100%;
+    max-width: 1200px; /* 容器最大宽度 */
+    padding: 20px;
+    box-sizing: border-box;
+}
+.input-area, .query-area {
+    width: 48%; /* 两个区域各占一半宽度 */
+    padding: 10px;
+    box-sizing: border-box;
+}
+.container, label, input, select, textarea, button, input[type="submit"], .total-sum {
+    font-size: 20px; /* 放大4号字体 */
+}
+.query-area form:first-of-type {
+    margin-bottom: 260px; /* 增加第一个表单的底部边距 */
+}
+button, input[type="submit"] {
+    background-color: #4CAF50; /* 按钮背景颜色 */
+    color: white; /* 按钮文字颜色 */
+    padding: 12px 20px; /* 按钮内边距 */
+    border: none; /* 无边框 */
+    cursor: pointer; /* 鼠标悬停时显示指针 */
+    font-size: 16px; /* 文字大小 */
+    transition: background-color 0.3s; /* 过渡效果 */
+}
+button:hover, input[type="submit"]:hover {
+    background-color: #45a049; /* 鼠标悬停时的背景颜色 */
+}
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    .input-area, .query-area {
+        width: 100%;
+    }
+    .query-area form:first-of-type {
+        margin-bottom: 20px; /* 小屏幕上减少边距 */
+    }
+}
